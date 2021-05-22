@@ -5,11 +5,14 @@ import 'package:uni_links/uni_links.dart';
 
 
 void main() {
+
+  // Init observer
   ExampleLinkObserver.init();
 
   runApp(MyApp());
 }
 
+// Implement observer
 class ExampleLinkObserver extends LinkObserver {
 
   ExampleLinkObserver.init() : super.init();
@@ -19,13 +22,16 @@ class ExampleLinkObserver extends LinkObserver {
     final String path = uri.fragment;
     if (path.contains("home")) {
       maybeShowInSnackBar("Link contains 'home'");
+
+      // TODO: something useful such as call the router
+
     }
   }
 
 }
 
 
-
+// Link observer responds to changes in the app lifecycle
 abstract class LinkObserver with WidgetsBindingObserver {
 
   LinkObserver.init() {
@@ -59,6 +65,7 @@ typedef HandleUri = void Function(Uri uri);
 
 typedef HandleUriError = void Function(Object error, StackTrace stackTrace);
 
+// Link listener encapsulates uni_links behaviour and delegates handling of Uris and errors
 class LinkListener {
 
   static StreamSubscription? _sub;
@@ -96,6 +103,7 @@ class LinkListener {
 
 }
 
+// Used to get a context object for snackbar
 class NavigationKey {
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
 }
